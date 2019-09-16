@@ -1,13 +1,17 @@
+import time
+import progressbar
 
 def read_file(filename):
 	data = []
 	count = 0
+	bar = progressbar.ProgressBar(max_value=1000000)
 	with open(filename, 'r') as f:
 		for line in f:
 			data.append(line)
 			count += 1 #count = count + 1
-			if count % 1000 == 0:   #％是用來求餘數
-				print(len(data))	#當你是一千的倍數就印出來
+			bar.update(count)
+			#if count % 1000 == 0:   #％是用來求餘數
+				#print(len(data))	#當你是一千的倍數就印出來
 	print('檔案讀取完了,總共有', len(data), '筆資料')
 
 	sum_len = 0
@@ -40,6 +44,7 @@ def read_file(filename):
 
 # 文字計數
 def count(data):
+	start_time = time.time()
 	wc = {} # word_count
 	for d in data:
 		words = d.split()
@@ -51,7 +56,8 @@ def count(data):
 	for word in wc:
 		if wc[word] > 1000000:
 			print(word, wc[word])
-
+	end_time = time.time()
+	print('花了', end_time - start_time, 'seconds')
 	print(len(wc))
 
 	while True:
