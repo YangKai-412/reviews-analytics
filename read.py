@@ -25,6 +25,38 @@ good = []
 for d in data:
 	if 'good' in d:
 		good.append(d)
+
+#good = [d for d in data if 'good' in d] #上面四行快寫法
+
 print('一共有', len(good), '筆留言提到good')
 print(good[0])
 
+#bad = ['bad' in d for d in data]
+#print(bad)	#此行印出 一百萬筆 True or False 運算
+
+
+# 文字計數
+wc = {} # word_count
+for d in data:
+	words = d.split()
+	for word in words:
+		if word in wc:
+			wc[word] += 1
+		else:
+			wc[word] = 1 #新增新的 key 進 wc 字典
+for word in wc:
+	if wc[word] > 1000000:
+		print(word, wc[word])
+
+print(len(wc))
+
+while True:
+	word = input('請問你想查什麼字： ')
+	if word == 'q':
+		break
+	if word in wc:
+		print(word, '出現過的次數為： ', wc[word])
+	else:
+		print('查無此字')
+
+print('謝謝使用查詢')
